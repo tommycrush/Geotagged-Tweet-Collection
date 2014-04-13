@@ -1,0 +1,2 @@
+1-59 * * * * /stream/monitor_check >/dev/null 2>&1
+0 */2 * * * sh /stream/monitor.sh restart >/dev/null 2>&1

@@ -1,0 +1,9 @@
+# this file is built from the PHP cron jobs plus the stream repo's cron_file
+0 4 * * * /usr/bin/php /var/www/schools/_cron/cacheCoordiantes.php >> /cron.log 2>&1 
+15 4 * * * /usr/bin/php /var/www/schools/_cron/cacheTopUsersPerSchool.php >> /cron.log 2>&1 
+30 4 * * * /usr/bin/php /var/www/schools/_cron/cacheSchoolStats.php >> /cron.log 2>&1 
+40 4 * * * /usr/bin/php /var/www/schools/_cron/cacheHashtagData.php >> /cron.log 2>&1 
+1-59 * * * * /stream/monitor_check >/dev/null 2>&1
+0-29,31-59 * * * * /stream2/monitor_check >/dev/null 2>&1
+0 */2 * * * sh /stream/monitor.sh restart >/dev/null 2>&1
+30 */2 * * * sh /stream2/monitor.sh restart >/dev/null 2>&1

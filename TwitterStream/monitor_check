@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Check if gedit is running
+if ps aux | pgrep -f "monitor.py"  > /dev/null
+then
+    echo "Running"
+else
+   echo "Starting!"
+   sh /stream/monitor.sh start
+   echo "Run started!"
+fi
