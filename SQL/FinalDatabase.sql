@@ -1,9 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 3.4.10.1deb1
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Apr 13, 2014 at 05:13 PM
 -- Server version: 5.5.34
 -- PHP Version: 5.3.10-1ubuntu3.9
 
@@ -18,6 +12,7 @@ SET time_zone = "+00:00";
 
 --
 -- Table structure for table `errors`
+-- (this table was rarely used)
 --
 
 CREATE TABLE IF NOT EXISTS `errors` (
