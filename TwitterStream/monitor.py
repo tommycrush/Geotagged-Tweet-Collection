@@ -12,10 +12,11 @@ import datetime
 import bounds
 import random
 
-consumer_key = "4SuBErRyTZO7vaYE5Q6WpA"
-consumer_secret = "lpxgiksw7NuQEeQ3yRBPSnXFpIXjy7BnjsXBDj5JfZo"
-access_token = "164442431-hStzR9b79GN08KbMEmlEzpv5sfjox46hq2PHMbeO"
-access_token_secret ="sUHie4mK96TPbuMGfTnPa09MudyzBnSdAySGai9Dnkzgz"
+# Twitter Auth
+consumer_key = ""
+consumer_secret = ""
+access_token = ""
+access_token_secret =""
 
 def clean(s):
     return filter(lambda x: x in string.printable, s)
@@ -93,8 +94,9 @@ class listener(StreamListener):
                     for url in tweet['entities']['urls']:
                         urls_list.append(url['expanded_url'])
                     urls = ''.join(urls_list)
-        
-            conn = MySQLdb.connect(host="localhost",user="root",passwd="91T08c!!",db="twitter",charset='utf8')
+       
+            # @todo: move these parameters to a class variable.
+            conn = MySQLdb.connect(host="localhost",user="user",passwd="passwd",db="db_name",charset='utf8')
             x = conn.cursor()
             try:
                 user_query = "REPLACE INTO `twitter`.`users` (`twitter_user_id`, `screen_name`, `description`, `location`, `name`) VALUES (%s, %s, %s, %s, %s )" 
@@ -132,6 +134,7 @@ class listener(StreamListener):
 
 
         #save batch to file
+        # use this is you want to save all tweets to a file, too
         """
         if self.num_tweets >= 50:
             self.num_tweets = 0
@@ -147,7 +150,7 @@ class listener(StreamListener):
         """
 
     def on_error(self, status):
-        conn = MySQLdb.connect(host="localhost",user="root",passwd="91T08c!!",db="twitter",charset='utf8')
+        conn = MySQLdb.connect(host="localhost",user="user",passwd="passwd",db="db_name",charset='utf8')
         x = conn.cursor()
         try:
             error_query = "INSERT INTO `errors` (`code`,`datetime`) VALUES (%s, NOW() )"
@@ -166,7 +169,7 @@ class listener(StreamListener):
         return True
 
     def record_limit(self, limit):
-        conn = MySQLdb.connect(host="localhost",user="root",passwd="91T08c!!",db="twitter",charset='utf8')
+        conn = MySQLdb.connect(host="localhost",user="user",passwd="passwd",db="db_name",charset='utf8')
         x = conn.cursor()
         try:
             error_query = "INSERT INTO `messages` (`monitor_session_id`,`limit_track`,`datetime_entered`) VALUES (%s, %s, NOW() )"
@@ -191,8 +194,6 @@ if __name__ == '__main__':
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
       
-    #locations=[36.28692,-89.36478,39.10585,-81.48131]
-    #latlng: usa = [25.82,-124.39,49.38,-66.94]
     sw1 = [25.82,-124.39]
     sw2 = [25.82,-87.39]
     ne1 = [49.38,-87.39]
